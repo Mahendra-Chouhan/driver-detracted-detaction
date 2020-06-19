@@ -18,7 +18,7 @@ class VGG16(object):
         self.base_model = applications.VGG16(include_top=False, weights='imagenet')  
         self.__loaded_model()
     
-    def __loaded_model(self, shape=(7, 7, 512), top_model_weights_path="models/vgg16_top_model_weights.h5"):
+    def __loaded_model(self, shape=(7, 7, 512), top_model_weights_path="models/vgg16_top_model_weights_updated.h5"):
         # build top model  
         self.model = self.__create_top_model("softmax", shape)
         self.model.load_weights(top_model_weights_path) 

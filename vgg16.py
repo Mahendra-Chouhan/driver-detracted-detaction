@@ -6,8 +6,6 @@ from keras.models import Sequential
 from keras.layers import Dropout,Flatten, Dense
 import operator
 import pandas as pd
-from decord import VideoReader
-from decord import cpu, gpu
 import cv2
 from tqdm import tqdm
 from utils import video_to_image

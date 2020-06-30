@@ -12,6 +12,7 @@ import cv2
 from tqdm import tqdm
 from utils import video_to_image
 
+
 class VGG16(object):
     def __init__(self):
         # build the VGG16 network  
@@ -121,7 +122,8 @@ class VGG16(object):
             result = {}
             result["label"] = key
             result["count"] = value
-            result["score"] = score
+            result["occurred_ratio"] = score
+            result["occurred_percentage"] = score*100
             final_result.append(result)
         final_result = sorted(final_result, key = lambda i: i['score'], reverse=True) 
         return final_result    

@@ -10,10 +10,11 @@ import os
 import cv2
 import uuid 
 ################
-from inception import Inception
+#from inception import Inception
 from vgg16 import VGG16
 from utils import video_to_image
 ###################
+
 
 ### MENU VARIABLES ###
 super_unsuper = ""
@@ -26,25 +27,15 @@ rgb_im = image.convert('RGB')
 ########################################
 # Machine Learning Algorithms Menu
 st.sidebar.image(rgb_im, use_column_width=False)
-st.sidebar.markdown("<h3 style='text-align: left; color: green;'>Model Selection</h3>", unsafe_allow_html=True)
+#st.sidebar.markdown("<h3 style='text-align: left; color: green;'>Model Selection</h3>", unsafe_allow_html=True)
 
 
-inception_obj = Inception()
+#inception_obj = Inception()
 vgg16_obj = VGG16()
-
-super_unsuper = st.sidebar.radio("Choose a model", ("Inception","VGG16", "Both"))
-if super_unsuper == "Inception":
-	ML_option = "Inception"
-if super_unsuper == "VGG16":
-	ML_option = "VGG16"
-if super_unsuper == "Both":
-	ML_option = "Both"
-
 
 ########################################
 # Title
 st.markdown("<h2 style='text-align: center; color: black;'>Driver Destraction Identification</h2>", unsafe_allow_html=True)
-
 
 
 
@@ -57,17 +48,8 @@ if uploaded_file is not None:
 	image_path = "images/{}.jpg".format(file_name)
 	im1 = image.save(image_path) 
 	st.image(image, caption='Uploaded Image.', use_column_width=True)
-	if ML_option == "Inception":
-		inception_predict, _ = inception_obj.prediction(image_path)
-		st.write("Inception prediction is: *{}*".format(inception_predict))
-	if ML_option == "VGG16":
-		vgg16_predict, _ = vgg16_obj.prediction(image_path)
-		st.write("VGG16 prediction is: *{}*".format(vgg16_predict))
-	if ML_option == "Both":
-		inception_predict, _ = inception_obj.prediction(image_path)
-		vgg16_predict, _ = vgg16_obj.prediction(image_path)
-		st.write("VGG16 prediction is: *{}*".format(vgg16_predict))
-		st.write("Inception prediction is: *{}*".format(inception_predict))
+	vgg16_predict, _ = vgg16_obj.prediction(image_path)
+	st.write("Prediction is: *{}*".format(vgg16_predict))
 
 uploaded_file = st.file_uploader("Choose an video...", type="mp4")
 if uploaded_file is not None:
@@ -78,7 +60,7 @@ if uploaded_file is not None:
 	fp = Path(video_file_path)
 	fp.write_bytes(uploaded_file.getvalue())
 	st.video(uploaded_file.getvalue(), format="video/mp4", start_time=0)
-	video_file_path = "videos/driver_distractor.mp4"
+	#video_file_path = "videos/driver_distractor.mp4"
 	image_paths = video_to_image(video_file_path)
 	vgg16_predict = vgg16_obj.predict_video(image_paths)
 	st.json(vgg16_predict)

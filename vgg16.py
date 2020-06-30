@@ -123,7 +123,7 @@ class VGG16(object):
             result["occurred_ratio"] = score
             result["occurred_percentage"] = score*100
             final_result.append(result)
-        final_result = sorted(final_result, key = lambda i: i['score'], reverse=True) 
+        final_result = sorted(final_result, key = lambda i: i['occurred_ratio'], reverse=True) 
         return final_result    
 
 if __name__ == '__main__':
